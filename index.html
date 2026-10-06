@@ -12,9 +12,9 @@
     --border: rgba(255,255,255,0.08);
     --text: #f2f2f2;
     --muted: #9a9a9a;
-    --c1: #7c5cff;
-    --c2: #00d4ff;
-    --c3: #ff4fd8;
+    --c1: #f7c948;
+    --c2: #ff7849;
+    --c3: #ff4d8d;
     --tg: #29a9eb;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -56,7 +56,7 @@
   }
   #spot {
     position: fixed; width: 500px; height: 500px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(124,92,255,.12), transparent 60%);
+    background: radial-gradient(circle, rgba(247,201,72,.12), transparent 60%);
     transform: translate(-50%,-50%); pointer-events: none; z-index: 0;
     transition: opacity .3s; opacity: 0;
   }
@@ -80,7 +80,7 @@
   }
   .card::before {
     content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
-    background: linear-gradient(135deg, rgba(124,92,255,.6), transparent 40%, transparent 60%, rgba(0,212,255,.5));
+    background: linear-gradient(135deg, rgba(247,201,72,.6), transparent 40%, transparent 60%, rgba(255,120,73,.5));
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor; mask-composite: exclude;
     pointer-events: none;
@@ -115,7 +115,7 @@
     background-clip: padding-box;
   }
   .avatar b {
-    background: linear-gradient(135deg, #fff, #b9a8ff);
+    background: linear-gradient(135deg, #fff, #ffe3a3);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
@@ -144,7 +144,7 @@
     background-size: 300% 100%;
     -webkit-background-clip: text; background-clip: text; color: transparent;
     animation: shine 8s linear infinite;
-    filter: drop-shadow(0 0 18px rgba(124,92,255,.55)) drop-shadow(0 0 40px rgba(0,212,255,.25));
+    filter: drop-shadow(0 0 18px rgba(247,201,72,.55)) drop-shadow(0 0 40px rgba(255,120,73,.25));
   }
   @keyframes shine { to { background-position: 300% 0; } }
 
@@ -161,16 +161,16 @@
     background: rgba(255,255,255,.04); border: 1px solid var(--border); border-radius: 999px;
     transition: border-color .3s, color .3s, transform .3s;
   }
-  .tag:hover { border-color: rgba(124,92,255,.6); color: #fff; transform: translateY(-2px); }
+  .tag:hover { border-color: rgba(247,201,72,.6); color: #fff; transform: translateY(-2px); }
 
   /* Кнопка «Написать мне» */
   .cta {
     position: relative; display: inline-flex; align-items: center; gap: 12px;
     padding: 18px 38px; border-radius: 999px;
-    font-size: 17px; font-weight: 700; color: #fff; text-decoration: none;
+    font-size: 17px; font-weight: 700; color: #1a1206; text-decoration: none;
     background: linear-gradient(90deg, var(--c1), var(--c2), var(--c1));
     background-size: 200% 100%;
-    box-shadow: 0 10px 30px rgba(124,92,255,.45);
+    box-shadow: 0 10px 30px rgba(247,201,72,.45);
     overflow: hidden; isolation: isolate;
     transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s, background-position .6s;
     animation: breathe 3s ease-in-out infinite;
@@ -186,17 +186,35 @@
   .cta:hover {
     transform: translateY(-3px) scale(1.04);
     background-position: 100% 0;
-    box-shadow: 0 16px 44px rgba(0,212,255,.5), 0 0 0 6px rgba(124,92,255,.15);
+    box-shadow: 0 16px 44px rgba(255,120,73,.5), 0 0 0 6px rgba(247,201,72,.15);
   }
   .cta:hover svg { transform: translateX(4px) rotate(-12deg); }
   .cta:active { transform: scale(.97); }
-  @keyframes breathe { 50% { box-shadow: 0 10px 40px rgba(0,212,255,.55); } }
+  @keyframes breathe { 50% { box-shadow: 0 10px 40px rgba(255,120,73,.55); } }
   @keyframes sweep { 0% { left: -75%; } 60%,100% { left: 130%; } }
   .ripple {
     position: absolute; border-radius: 50%; background: rgba(255,255,255,.5);
     transform: scale(0); animation: ripple .6s ease-out forwards; pointer-events: none;
   }
   @keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+  /* Кнопка «Сохранить контакт» */
+  .actions { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .save {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 26px; border-radius: 999px; cursor: pointer;
+    font: inherit; font-size: 15px; font-weight: 600; color: #f5e6c4;
+    background: rgba(247,201,72,.06); border: 1px solid rgba(247,201,72,.35);
+    transition: background .3s, border-color .3s, color .3s, transform .25s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .save svg { width: 18px; height: 18px; transition: transform .35s; }
+  .save:hover { background: rgba(247,201,72,.14); border-color: var(--c1); color: #fff; transform: translateY(-2px); }
+  .save:hover svg { transform: translateY(2px); }
+  .save.done { border-color: #3ddc84; color: #3ddc84; background: rgba(61,220,132,.08); }
+
+  /* Звёзды */
+  #stars { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
 
   /* Соцсети */
   .divider {
@@ -265,7 +283,9 @@
     body { align-items: flex-start; padding-top: 32px; }
     .card { padding: 44px 22px 34px; border-radius: 24px; }
     .avatar { width: 88px; height: 88px; font-size: 30px; margin-bottom: 22px; }
-    .cta { width: 100%; justify-content: center; padding: 17px 24px; }
+    .actions { align-items: stretch; }
+    .cta, .save { width: 100%; justify-content: center; }
+    .cta { padding: 17px 24px; }
     .social { width: 52px; height: 52px; border-radius: 16px; }
     .blob.b1 { width: 280px; height: 280px; }
     .blob.b2 { width: 240px; height: 240px; }
@@ -284,6 +304,7 @@
   <div class="blob b3"></div>
   <div class="grid"></div>
 </div>
+<canvas id="stars" aria-hidden="true"></canvas>
 <div id="spot" aria-hidden="true"></div>
 
 <main class="card" id="card">
@@ -303,12 +324,20 @@
     <span class="tag">Нейросети для команды</span>
   </div>
 
-  <a class="cta" id="cta" href="https://t.me/goldmun" target="_blank" rel="noopener">
-    Написать мне
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/>
-    </svg>
-  </a>
+  <div class="actions">
+    <a class="cta" id="cta" href="https://t.me/goldmun" target="_blank" rel="noopener">
+      Написать мне
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/>
+      </svg>
+    </a>
+    <button class="save" id="saveBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="9" cy="8" r="4"/><path d="M2 21c.7-3.6 3.5-6 7-6s6.3 2.4 7 6"/><path d="M19 8v6M16 11h6"/>
+      </svg>
+      <span>Сохранить в контакты</span>
+    </button>
+  </div>
 
   <div class="divider">Контакты</div>
 
@@ -387,6 +416,94 @@
       showToast('Ссылка скопирована');
     }
   });
+
+  // Сохранить контакт (vCard) — открывается в «Контактах» на телефоне и компьютере
+  const saveBtn = document.getElementById('saveBtn');
+  saveBtn.addEventListener('click', () => {
+    const vcard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'N:Михеев;Юрий;;;',
+      'FN:Юрий Михеев',
+      'TITLE:Эксперт по эффективному внедрению ИИ в жизни и бизнесе',
+      'URL;TYPE=Telegram:https://t.me/goldmun',
+      'X-SOCIALPROFILE;TYPE=telegram:https://t.me/goldmun',
+      'NOTE:Telegram: @goldmun',
+      'END:VCARD'
+    ].join('\r\n');
+    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'Yuriy-Mikheev.vcf';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    saveBtn.classList.add('done');
+    saveBtn.querySelector('span').textContent = 'Контакт сохранён';
+    showToast('Откройте файл, чтобы добавить контакт');
+    setTimeout(() => {
+      saveBtn.classList.remove('done');
+      saveBtn.querySelector('span').textContent = 'Сохранить в контакты';
+    }, 3000);
+  });
+
+  // Звёзды в движении + падающие звёзды
+  (() => {
+    const cvs = document.getElementById('stars');
+    const ctx = cvs.getContext('2d');
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const colors = ['255,255,255', '255,236,190', '255,214,150'];
+    let w, h, dpr, stars = [], meteors = [];
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = innerWidth || document.documentElement.clientWidth; h = innerHeight || document.documentElement.clientHeight;
+      if (!w || !h) return;
+      cvs.width = w * dpr; cvs.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.min(Math.round(w * h / 3000), 600);
+      stars = Array.from({ length: count }, () => ({
+        x: Math.random() * w, y: Math.random() * h,
+        r: Math.random() * 1.8 + .6,
+        z: Math.random() * .8 + .2,            // глубина: дальние медленнее
+        tw: Math.random() * Math.PI * 2,       // фаза мерцания
+        c: colors[Math.random() * colors.length | 0]
+      }));
+    }
+    function spawnMeteor() {
+      meteors.push({ x: Math.random() * w * .8 + w * .2, y: Math.random() * h * .4, len: 120 + Math.random() * 80, v: 9 + Math.random() * 5, life: 1 });
+    }
+    function frame() {
+      if ((innerWidth && innerWidth !== w) || (innerHeight && innerHeight !== h)) resize();
+      ctx.clearRect(0, 0, w, h);
+      for (const s of stars) {
+        if (!still) {
+          s.y -= s.z * .6; s.x += s.z * .15;
+          if (s.y < -2) { s.y = h + 2; s.x = Math.random() * w; }
+          if (s.x > w + 2) s.x = -2;
+          s.tw += .02 + s.z * .03;
+        }
+        const a = (.6 + Math.sin(s.tw) * .4) * (.45 + s.z * .55);
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${s.c},${a})`;
+        if (s.r > 1.6) { ctx.shadowBlur = 10; ctx.shadowColor = `rgba(${s.c},.9)`; } else ctx.shadowBlur = 0;
+        ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+      if (!still && Math.random() < .012) spawnMeteor();
+      meteors = meteors.filter(m => m.life > 0);
+      for (const m of meteors) {
+        m.x -= m.v; m.y += m.v * .5; m.life -= .012;
+        const g = ctx.createLinearGradient(m.x, m.y, m.x + m.len, m.y - m.len * .5);
+        g.addColorStop(0, `rgba(255,236,190,${m.life})`);
+        g.addColorStop(1, 'rgba(255,236,190,0)');
+        ctx.strokeStyle = g; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(m.x, m.y); ctx.lineTo(m.x + m.len, m.y - m.len * .5); ctx.stroke();
+      }
+      if (!still) requestAnimationFrame(frame);
+    }
+    addEventListener('resize', resize);
+    resize(); frame();
+  })();
 
   // Ripple-эффект на кнопке
   const cta = document.getElementById('cta');
